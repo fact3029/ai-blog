@@ -1,0 +1,48 @@
+# ===== サイト設定 =====
+# iPhone だけで運用する場合、このファイルは編集しなくてOK。
+# GitHub の Settings → Secrets and variables → Actions → 「Variables」タブで
+# SITE_TITLE / NICHE / AMAZON_TAG / RAKUTEN_AFFILIATE_ID などを入力すると、ここの値より優先される。
+site:
+  title: "暮らしの道具ラボ"
+  description: "日用品・ガジェット・家電の選び方を、実際の仕様と比較でわかりやすく解説。"
+  # 空なら GitHub Pages の URL（https://ユーザー名.github.io/リポジトリ名）を自動で使う
+  base_url: ""
+  author: "編集部"
+  # 独自ドメインを使う場合だけ設定（例: blog.example.com）。AdSense審査には独自ドメインが必要
+  custom_domain: ""
+  # Google Search Console の所有権確認タグ（変数 GSC_VERIFICATION にタグを丸ごと貼ってもOK）
+  gsc_verification: ""
+
+# 記事のジャンル。購入につながる「比較・選び方」系が収益化しやすい
+niche: "日用品・家電・ガジェットの選び方と比較（購入検討者向け）"
+
+# ===== 収益化 =====
+monetize:
+  # Amazonアソシエイトのトラッキングタグ（例: yourname-22）。空ならリンクにタグを付けない
+  amazon_tag: ""
+  # 楽天アフィリエイトID（任意）。空なら楽天リンクは出さない
+  rakuten_affiliate_id: ""
+  # Google AdSense のパブリッシャーID（例: ca-pub-1234567890123456）。空なら広告なし
+  # ※ AdSense は独自ドメイン（有料）が必要なので、初期費用0円で始める場合は空のままでOK
+  adsense_client: ""
+
+# ===== 生成設定 =====
+generate:
+  posts_per_run: 1
+  # Web検索で最新情報を確認してから書く（anthropic 利用時のみ有効）
+  web_search: true
+  # キーワード在庫がこれを下回ったら AI に新しいテーマを考えさせる
+  min_keywords: 5
+  # 上から順に試し、APIキー/トークンがないもの・失敗したものは飛ばす。
+  # 初期状態は無料のものだけで動く（github は登録不要、gemini は無料キーを登録すると使われる）
+  providers:
+    - name: gemini            # 無料枠。https://aistudio.google.com/apikey でキー発行（カード不要）
+      model: "gemini-flash-latest"
+      max_tokens: 8000
+    - name: github            # 無料。GitHub Actions 上なら設定不要（1日の回数制限あり）
+      model: "openai/gpt-4.1-mini"
+      max_tokens: 4000
+    # 有料の Claude を使う場合は下の3行のコメントを外し、ANTHROPIC_API_KEY を登録して先頭に移動する
+    # - name: anthropic
+    #   model: "claude-opus-5-5"
+    #   effort: "medium"
