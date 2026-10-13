@@ -3,8 +3,8 @@
 # GitHub の Settings → Secrets and variables → Actions → 「Variables」タブで
 # SITE_TITLE / NICHE / AMAZON_TAG / RAKUTEN_AFFILIATE_ID などを入力すると、ここの値より優先される。
 site:
-  title: "はじめてのキャンプ道具ナビ"
-  description: "キャンプ初心者・ファミリー向けに、テント・寝袋・バーナーなどの道具の選び方と比較ポイントをわかりやすく解説。"
+  title: "落とし方ノート"
+  description: "シミ・カビ・汚れ・ニオイの「この場合はどうする？」に、素材と状況別に具体的な手順で答えるサイト。"
   # 空なら GitHub Pages の URL（https://ユーザー名.github.io/リポジトリ名）を自動で使う
   base_url: ""
   author: "編集部"
@@ -13,8 +13,8 @@ site:
   # Google Search Console の所有権確認タグ（変数 GSC_VERIFICATION にタグを丸ごと貼ってもOK）
   gsc_verification: ""
 
-# 記事のジャンル。購入につながる「比較・選び方」系が収益化しやすい
-niche: "キャンプ・アウトドア用品の選び方と比較（初心者・ファミリー・ソロキャンプで道具をそろえたい人向け）"
+# 記事のジャンル。大手が網羅しきれない「具体的な状況別の悩み解決」で、記事の中身で選ばれることを狙う
+niche: "家庭の汚れ・シミ・カビ・ニオイの落とし方（汚れの種類×素材×場所×時間経過など、具体的な状況別の解決方法）"
 
 # ===== 収益化 =====
 monetize:
