@@ -3,8 +3,8 @@
 # GitHub の Settings → Secrets and variables → Actions → 「Variables」タブで
 # SITE_TITLE / NICHE / AMAZON_TAG / RAKUTEN_AFFILIATE_ID などを入力すると、ここの値より優先される。
 site:
-  title: "暮らしの道具ラボ"
-  description: "日用品・ガジェット・家電の選び方を、実際の仕様と比較でわかりやすく解説。"
+  title: "はじめてのキャンプ道具ナビ"
+  description: "キャンプ初心者・ファミリー向けに、テント・寝袋・バーナーなどの道具の選び方と比較ポイントをわかりやすく解説。"
   # 空なら GitHub Pages の URL（https://ユーザー名.github.io/リポジトリ名）を自動で使う
   base_url: ""
   author: "編集部"
@@ -14,7 +14,7 @@ site:
   gsc_verification: ""
 
 # 記事のジャンル。購入につながる「比較・選び方」系が収益化しやすい
-niche: "日用品・家電・ガジェットの選び方と比較（購入検討者向け）"
+niche: "キャンプ・アウトドア用品の選び方と比較（初心者・ファミリー・ソロキャンプで道具をそろえたい人向け）"
 
 # ===== 収益化 =====
 monetize:
