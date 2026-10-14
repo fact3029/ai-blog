@@ -1,0 +1,42 @@
+# 価格を追跡する商品。keyword で楽天を検索し、match の語をすべて含む商品だけを集計する。
+# AIが自動で追加するほか、iPhone の「Run workflow」画面から追加もできる。
+- label: Nintendo Switch 2 本体
+  keyword: Nintendo Switch 2 本体
+  match: [switch2, 本体]
+  category: ゲーム機
+- label: PlayStation 5 Pro
+  keyword: PlayStation 5 Pro 本体
+  match: [playstation5pro]
+  category: ゲーム機
+- label: iPad（A16）
+  keyword: iPad A16 Wi-Fi 128GB
+  match: [ipad, a16]
+  category: タブレット
+- label: AirPods Pro 3
+  keyword: AirPods Pro 3
+  match: [airpodspro3]
+  category: イヤホン
+- label: ダイソン V12 Detect Slim
+  keyword: ダイソン V12 Detect Slim
+  match: [v12, detect]
+  category: コードレス掃除機
+- label: パナソニック ナノケア EH-NA0J
+  keyword: パナソニック ナノケア EH-NA0J
+  match: [eh-na0j]
+  category: 美容家電
+- label: バルミューダ ザ・トースター
+  keyword: バルミューダ ザ・トースター
+  match: [バルミューダ, トースター]
+  category: キッチン家電
+- label: コシヒカリ 5kg
+  keyword: コシヒカリ 5kg 令和7年産
+  match: [コシヒカリ, 5kg]
+  category: お米
+- label: 無洗米 5kg
+  keyword: 無洗米 5kg
+  match: [無洗米, 5kg]
+  category: お米
+- label: ザバス ホエイプロテイン100 ココア 2kg前後
+  keyword: ザバス ホエイプロテイン100 ココア
+  match: [ザバス, ホエイ, ココア]
+  category: 食品

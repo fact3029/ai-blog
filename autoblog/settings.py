@@ -18,10 +18,9 @@ OVERRIDES = {
     "BASE_URL": ("site", "base_url"),
     "CUSTOM_DOMAIN": ("site", "custom_domain"),
     "GSC_VERIFICATION": ("site", "gsc_verification"),
-    "AMAZON_TAG": ("monetize", "amazon_tag"),
     "RAKUTEN_AFFILIATE_ID": ("monetize", "rakuten_affiliate_id"),
-    "ADSENSE_CLIENT": ("monetize", "adsense_client"),
-    "POSTS_PER_RUN": ("generate", "posts_per_run"),
+    "ADD_PER_RUN": ("generate", "add_per_run"),
+    "MAX_PRODUCTS": ("generate", "max_products"),
 }
 
 
@@ -40,7 +39,7 @@ def load_config():
     for env, (section, key) in OVERRIDES.items():
         value = os.environ.get(env, "").strip()
         if value:
-            cfg.setdefault(section, {})[key] = int(value) if key == "posts_per_run" else value
+            cfg.setdefault(section, {})[key] = int(value) if section == "generate" else value
     if os.environ.get("NICHE", "").strip():
         cfg["niche"] = os.environ["NICHE"].strip()
 

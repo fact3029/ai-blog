@@ -1,38 +1,34 @@
 # ===== サイト設定 =====
 # iPhone だけで運用する場合、このファイルは編集しなくてOK。
 # GitHub の Settings → Secrets and variables → Actions → 「Variables」タブで
-# SITE_TITLE / NICHE / AMAZON_TAG / RAKUTEN_AFFILIATE_ID などを入力すると、ここの値より優先される。
+# SITE_TITLE / NICHE / RAKUTEN_AFFILIATE_ID などを入力すると、ここの値より優先される。
 site:
-  title: "落とし方ノート"
-  description: "シミ・カビ・汚れ・ニオイの「この場合はどうする？」に、素材と状況別に具体的な手順で答えるサイト。"
+  title: "買い時ウォッチ"
+  description: "人気の家電・ゲーム機・日用品の楽天市場での最安値を毎日記録。価格推移のグラフと実データで「今が買い時か」を判定します。"
   # 空なら GitHub Pages の URL（https://ユーザー名.github.io/リポジトリ名）を自動で使う
   base_url: ""
   author: "編集部"
-  # 独自ドメインを使う場合だけ設定（例: blog.example.com）。AdSense審査には独自ドメインが必要
+  # 独自ドメインを使う場合だけ設定（例: kaidoki.example.com）
   custom_domain: ""
   # Google Search Console の所有権確認タグ（変数 GSC_VERIFICATION にタグを丸ごと貼ってもOK）
   gsc_verification: ""
 
-# 記事のジャンル。大手が網羅しきれない「具体的な状況別の悩み解決」で、記事の中身で選ばれることを狙う
-niche: "家庭の汚れ・シミ・カビ・ニオイの落とし方（汚れの種類×素材×場所×時間経過など、具体的な状況別の解決方法）"
+# 追跡する商品のジャンル。AIはこの範囲で人気商品を探して追加する
+niche: "楽天市場で人気の家電・ゲーム機・美容家電・食品（米など）・日用品のうち、価格が変動しやすく最安値を調べられやすいもの"
 
 # ===== 収益化 =====
 monetize:
-  # Amazonアソシエイトのトラッキングタグ（例: yourname-22）。空ならリンクにタグを付けない
-  amazon_tag: ""
-  # 楽天アフィリエイトID（任意）。空なら楽天リンクは出さない
+  # 楽天アフィリエイトID。設定すると商品リンクが自動でアフィリエイトリンクになる（変数 RAKUTEN_AFFILIATE_ID でも可）
   rakuten_affiliate_id: ""
-  # Google AdSense のパブリッシャーID（例: ca-pub-1234567890123456）。空なら広告なし
-  # ※ AdSense は独自ドメイン（有料）が必要なので、初期費用0円で始める場合は空のままでOK
-  adsense_client: ""
 
 # ===== 生成設定 =====
 generate:
-  posts_per_run: 1
-  # Web検索で最新情報を確認してから書く（anthropic 利用時のみ有効）
-  web_search: true
-  # キーワード在庫がこれを下回ったら AI に新しいテーマを考えさせる
-  min_keywords: 5
+  # 追跡する商品数の上限（楽天APIは1秒1回なので100件程度まで余裕）
+  max_products: 100
+  # 1日にAIが追加する商品数（楽天で実在を確認できたものだけ追加される）
+  add_per_run: 3
+  # 1日にAIが書く商品解説の数
+  notes_per_run: 2
   # 上から順に試し、APIキー/トークンがないもの・失敗したものは飛ばす。
   # 初期状態は無料のものだけで動く（github は登録不要、gemini は無料キーを登録すると使われる）
   providers:

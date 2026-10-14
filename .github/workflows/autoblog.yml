@@ -1,16 +1,16 @@
-name: AI 自動ブログ
+name: 買い時ウォッチ（価格記録と公開）
 
 on:
   schedule:
-    - cron: "17 22 * * *"   # UTC 22:17 = JST 7:17 に毎日1回
+    - cron: "17 21 * * *"   # UTC 21:17 = JST 6:17 に毎日1回
   workflow_dispatch:
     inputs:
-      add_topics:
-        description: "書いてほしいテーマ（任意・複数は「、」区切り）。次の記事から優先して使われる"
+      add_products:
+        description: "追跡したい商品名（任意・複数は「、」区切り）。楽天で見つかったものだけ追加"
         type: string
         default: ""
-      generate:
-        description: "記事を生成する（オフならテーマ追加とサイト更新だけ）"
+      run_ai:
+        description: "AIによる商品追加・解説作成を行う"
         type: boolean
         default: true
 
@@ -33,7 +33,7 @@ jobs:
     defaults:
       run:
         working-directory: autoblog
-    # iPhone から Settings → Secrets and variables → Actions → Variables で入力した設定
+    # iPhone から Settings → Secrets and variables → Actions で入力した設定
     env:
       SITE_TITLE: ${{ vars.SITE_TITLE }}
       SITE_DESCRIPTION: ${{ vars.SITE_DESCRIPTION }}
@@ -41,10 +41,11 @@ jobs:
       BASE_URL: ${{ vars.BASE_URL }}
       CUSTOM_DOMAIN: ${{ vars.CUSTOM_DOMAIN }}
       GSC_VERIFICATION: ${{ vars.GSC_VERIFICATION }}
-      AMAZON_TAG: ${{ vars.AMAZON_TAG }}
       RAKUTEN_AFFILIATE_ID: ${{ vars.RAKUTEN_AFFILIATE_ID }}
-      ADSENSE_CLIENT: ${{ vars.ADSENSE_CLIENT }}
-      POSTS_PER_RUN: ${{ vars.POSTS_PER_RUN }}
+      ADD_PER_RUN: ${{ vars.ADD_PER_RUN }}
+      MAX_PRODUCTS: ${{ vars.MAX_PRODUCTS }}
+      RAKUTEN_APP_ID: ${{ secrets.RAKUTEN_APP_ID }}
+      RAKUTEN_ACCESS_KEY: ${{ secrets.RAKUTEN_ACCESS_KEY }}
     steps:
       - uses: actions/checkout@v4
 
@@ -56,26 +57,24 @@ jobs:
 
       - run: pip install -r requirements.txt
 
-      - name: テーマを追加
-        if: inputs.add_topics != ''
+      - name: AIで商品を追加・解説を作成
+        if: github.event_name == 'schedule' || inputs.run_ai || inputs.add_products != ''
         env:
-          ADD_TOPICS: ${{ inputs.add_topics }}
-        run: python -c "import generate as g; c, k = g.read_keywords(); g.add_topics(c, k)"
-
-      - name: 記事を生成
-        if: github.event_name == 'schedule' || inputs.generate
-        env:
+          ADD_PRODUCTS: ${{ inputs.add_products }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}           # 無料（設定不要）
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}       # 無料（任意）
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }} # 有料（任意）
         run: python generate.py
 
-      - name: 生成した記事をコミット
+      - name: 楽天の価格を記録
+        run: python tracker.py
+
+      - name: 記録をコミット
         run: |
-          git config user.name "autoblog-bot"
-          git config user.email "autoblog-bot@users.noreply.github.com"
-          git add posts keywords.txt
-          git diff --cached --quiet || git commit -m "autoblog: 新しい記事を追加"
+          git config user.name "price-bot"
+          git config user.email "price-bot@users.noreply.github.com"
+          git add -A data notes watchlist.yaml
+          git diff --cached --quiet || git commit -m "価格を記録: $(TZ=Asia/Tokyo date +%F)"
           git push
 
       - run: python build.py
